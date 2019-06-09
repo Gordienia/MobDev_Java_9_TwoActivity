@@ -1,8 +1,11 @@
 package com.example.twoactivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class ActivityTwo extends AppCompatActivity {
 
@@ -50,5 +53,43 @@ public class ActivityTwo extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "ActivityTwo: onDestroy()");
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    // обновление меню
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        // пункты меню с ID группы = 1 видны, если в CheckBox стоит галка
+        menu.findItem(R.id.second).setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.first:
+                intent = new Intent(this, MainActivity.class);
+                break;
+            case R.id.second:
+                intent = new Intent(this, ActivityTwo.class);
+                break;
+            case R.id.third:
+                intent = new Intent(this, ActivityThree.class);
+                break;
+            case R.id.fourth:
+                intent = new Intent(this, ActivityFour.class);
+                break;
+        }
+        startActivity(intent);
+
+        return super.onOptionsItemSelected(item);
     }
 }
